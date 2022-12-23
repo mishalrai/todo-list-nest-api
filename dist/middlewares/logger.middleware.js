@@ -6,24 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TodoModule = void 0;
+exports.LoggerMiddleware = void 0;
 const common_1 = require("@nestjs/common");
-const todo_controller_1 = require("./todo.controller");
-const todo_service_1 = require("./todo.service");
-const logger_middleware_1 = require("../middlewares/logger.middleware");
-const routes_1 = require("../models/routes");
-let TodoModule = class TodoModule {
-    configure(consumer) {
-        consumer
-            .apply(logger_middleware_1.LoggerMiddleware)
-            .forRoutes(routes_1.ROUTES.TODO);
+let LoggerMiddleware = class LoggerMiddleware {
+    use(req, res, next) {
+        console.log('Middleware is working ...');
+        next();
     }
 };
-TodoModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [todo_controller_1.TodoControl],
-        providers: [todo_service_1.TodoService]
-    })
-], TodoModule);
-exports.TodoModule = TodoModule;
-//# sourceMappingURL=todo.module.js.map
+LoggerMiddleware = __decorate([
+    (0, common_1.Injectable)()
+], LoggerMiddleware);
+exports.LoggerMiddleware = LoggerMiddleware;
+//# sourceMappingURL=logger.middleware.js.map

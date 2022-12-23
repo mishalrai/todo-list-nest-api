@@ -13,7 +13,7 @@ let TodoService = class TodoService {
         this.storage = [];
     }
     create(todo) {
-        const currentMaxId = Math.max(...this.storage.map((t) => t.id));
+        const currentMaxId = Math.max(...this.storage.map((t) => t.id)) || 1;
         todo.id = currentMaxId + 1;
         this.storage.push(todo);
     }

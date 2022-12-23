@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TodoControl = void 0;
 const common_1 = require("@nestjs/common");
 const todo_service_1 = require("./todo.service");
+const routes_1 = require("../models/routes");
 let TodoControl = TodoControl_1 = class TodoControl {
     constructor(todoService) {
         this.todoService = todoService;
@@ -26,6 +27,7 @@ let TodoControl = TodoControl_1 = class TodoControl {
         return this.todoService.create(todo);
     }
     findAll() {
+        throw new common_1.BadRequestException('Something bad happened', { cause: new Error(), description: 'Some error description' });
         this.logger.log('Handling findAll() request');
         return this.todoService.findAll();
     }
@@ -57,7 +59,7 @@ __decorate([
 ], TodoControl.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('id', new common_1.ParseIntPipe({ errorHttpStatusCode: common_1.HttpStatus.NOT_ACCEPTABLE }))),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Object)
@@ -78,7 +80,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TodoControl.prototype, "remove", null);
 TodoControl = TodoControl_1 = __decorate([
-    (0, common_1.Controller)('todo'),
+    (0, common_1.Controller)(routes_1.ROUTES.TODO),
     __metadata("design:paramtypes", [todo_service_1.TodoService])
 ], TodoControl);
 exports.TodoControl = TodoControl;
